@@ -5,3 +5,5 @@ pillow
 opencv-python
 scikit-image
 opencv-python-headless
+pywavelets
+
