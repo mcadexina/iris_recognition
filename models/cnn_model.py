@@ -61,7 +61,17 @@ def predict_class(image, model):
 
 # Build a feature extractor from the model by removing the softmax layer
 def build_feature_extractor(model):
-    return models.Model(inputs=model.input, outputs=model.get_layer("feature_layer").output)
+    feature_layer = None
+for layer in model.layers:
+    if "feature" in layer.name:
+        feature_layer = layer
+        break
+
+if feature_layer is None:
+    raise ValueError("No feature layer found in model")
+
+return models.Model(inputs=model.input, outputs=feature_layer.output)
+
 
 # Extract deep features from an image using the CNN feature extractor
 def extract_features(image, model):
