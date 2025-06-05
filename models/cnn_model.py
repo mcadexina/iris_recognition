@@ -62,6 +62,7 @@ def predict_class(image, model):
 # Build a feature extractor from the model by removing the softmax layer
 # Build a feature extractor from the model by removing the softmax layer
 def build_feature_extractor(model):
+    print("Model layers:", [layer.name for layer in model.layers])  # <-- Add this
     feature_layer = None
     for layer in model.layers:
         if "feature" in layer.name:
@@ -72,6 +73,7 @@ def build_feature_extractor(model):
         raise ValueError("No feature layer found in model")
 
     return models.Model(inputs=model.input, outputs=feature_layer.output)
+
 
 
 
